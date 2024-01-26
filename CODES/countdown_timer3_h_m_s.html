@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Countdown Timer with Color Changes</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 10px;
+      background-color: rgb(19, 246, 19); /* Initial background color */
+      transition: background-color 1s ease; /* Smooth transition effect */
+    }
+
+    #countdown {
+      font-size: 36px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Interactive Countdown Timer</h1>
+
+  <script>
+    // Prompt the user for hours, minutes, and seconds
+    const hoursInput = parseInt(prompt("Enter hours:"));
+    const minutesInput = parseInt(prompt("Enter minutes:"));
+    const secondsInput = parseInt(prompt("Enter seconds:"));
+
+    // Validate the input
+    if (isNaN(hoursInput) || isNaN(minutesInput) || isNaN(secondsInput) ||
+        hoursInput < 0 || minutesInput < 0 || secondsInput < 0) {
+      alert("Invalid input. Please refresh the page and enter valid hours, minutes, and seconds.");
+    } else {
+      // Calculate the total milliseconds for the countdown
+      const countDownDate = new Date().getTime() + (hoursInput * 60 * 60 * 1000) + (minutesInput * 60 * 1000) + (secondsInput * 1000);
+
+      // Display the countdown
+      const countdownElement = document.createElement("div");
+      countdownElement.id = "countdown";
+      document.body.appendChild(countdownElement);
+
+      // Update the countdown every 1 second
+      const x = setInterval(function() {
+
+        // Get the current date and time
+        const now = new Date().getTime();
+
+        // Calculate the difference between the countdown date and the current date
+        const distance = countDownDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the countdown
+        countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+          // Change background color based on remaining time
+          if (distance < 60000) { // Less than 1 minute (60,000 milliseconds)
+            document.body.style.backgroundColor = "rgb(255, 0, 0)"; // Red color for 1 minute remaining
+          } else if (distance < 120000) { // Less than 2 minutes (120,000 milliseconds)
+            document.body.style.backgroundColor = "rgb(244, 166, 31)"; // Orange color for 2 minutes remaining
+          } else if (distance < 300000) { // Less than 5 minutes (300,000 milliseconds)
+            document.body.style.backgroundColor = "yellow"; // Yellow color for 5 minutes remaining
+          }
+
+        if (distance < 0) {
+          clearInterval(x);
+          countdownElement.innerHTML = "EXPIRED";
+          document.body.style.backgroundColor = "rgb(19, 110, 246)";;
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
