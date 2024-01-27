@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Countdown Timer with Color Changes</title>
+  <title>Interactive Countdown Timer with Color Changes and Sound Alerts</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -38,6 +38,25 @@
       // Calculate the total milliseconds for the countdown
       const countDownDate = new Date().getTime() + (hoursInput * 60 * 60 * 1000) + (minutesInput * 60 * 1000) + (secondsInput * 1000);
 
+      // Create audio elements for different levels
+      const redAlert = createAudio('../SOUNDS/analog-watch-alarm_daniel-simion.mp3');
+      const orangeAlert = createAudio('../SOUNDS/sms-alert-3-daniel_simon.mp3');
+      const yellowAlert = createAudio('../SOUNDS/sms-alert-5-daniel_simon.mp3');
+      const endAlert = createAudio('../SOUNDS/service-bell_daniel_simion.mp3');
+
+      // Create variables to track whether the alerts have been played
+      let redAlertPlayed = false;
+      let orangeAlertPlayed = false;
+      let yellowAlertPlayed = false;
+      let endAlertPlayed = false;
+
+      function createAudio(src) {
+        const audio = new Audio();
+        audio.src = src;
+        // Optional: Add event listeners for additional handling (e.g., error handling)
+        return audio;
+      }
+
       // Display the countdown
       const countdownElement = document.createElement("div");
       countdownElement.id = "countdown";
@@ -60,10 +79,27 @@
         // Display the countdown
         countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-        if (distance < 0) {
+        // Change background color and play sound based on remaining time
+        if (distance < 60000 && !redAlertPlayed) { // Less than 1 minute (60,000 milliseconds) and sound not played
+          document.body.style.backgroundColor = "rgb(255, 0, 0)"; // Red color for 1 minute remaining
+          redAlert.play();
+          redAlertPlayed = true; // Set the flag to true to indicate the sound has been played
+        } else if (distance < 120000 && !orangeAlertPlayed) { // Less than 2 minutes (120,000 milliseconds) and sound not played
+          document.body.style.backgroundColor = "rgb(244, 166, 31)"; // Orange color for 2 minutes remaining
+          orangeAlert.play();
+          orangeAlertPlayed = true; // Set the flag to true to indicate the sound has been played
+        } else if (distance < 300000 && !yellowAlertPlayed) { // Less than 5 minutes (300,000 milliseconds) and sound not played
+          document.body.style.backgroundColor = "yellow"; // Yellow color for 5 minutes remaining
+          yellowAlert.play();
+          yellowAlertPlayed = true; // Set the flag to true to indicate the sound has been played
+        }
+
+        if (distance < 0 && !endAlertPlayed) { // Time has expired and end alert not played
           clearInterval(x);
           countdownElement.innerHTML = "EXPIRED";
           document.body.style.backgroundColor = "rgb(19, 110, 246)";
+          endAlert.play();
+          endAlertPlayed = true; // Set the flag to true to indicate the sound has been played
         }
       }, 1000);
     }
