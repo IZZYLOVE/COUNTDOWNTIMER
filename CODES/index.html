@@ -3,13 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS_CLASS</title>
+    <title>COUNTDOWN TIMER</title>
+    <meta name="description" content="A simple countdown timer app">
+    <meta name="keywords" content="HTML, CSS, JavaScript, timer, count, down, countdown">
+    <meta name="author" content="KINGDOM ADELE">
+    <link rel="icon" href="../IMAGES/countdown_logo.png" type="image/x-icon">
+    <base href="./">
+    <!-- <base href="https://www.example.com/"> -->
+    <link rel="canonical" href="https://www.countdowntimer.com/sound">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-<body >
-<ul>
-    <li><a href="countdown_timer3_h_m_s_sound.html" class="">+SOUND</a></li>
-    <li><a href="countdown_timer3_h_m_s.html" class="">-SOUND</a></li>
-</ul>
+<body>
+
+<div class="container">
+    <h1>Countdown Timer Setup</h1>
+
+    <form id="countdownForm">
+        <label for="hours">Hours:</label>
+        <input type="number" id="hours" name="hours" required>
+
+        <label for="minutes">Minutes:</label>
+        <input type="number" id="minutes" name="minutes" required>
+
+        <label for="seconds">Seconds:</label>
+        <input type="number" id="seconds" name="seconds" required>
+
+        <button type="button" onclick="submitForm('nosound.html')">Start Timer (No Sound)</button>
+        <button type="button" onclick="submitForm('sound.html')">Start Timer (With Sound)</button>
+    </form>
+</div>
+
+<script>
+    function submitForm(destination) {
+        const hoursInput = parseInt(document.getElementById('hours').value);
+        const minutesInput = parseInt(document.getElementById('minutes').value);
+        const secondsInput = parseInt(document.getElementById('seconds').value);
+
+        if (isNaN(hoursInput) || isNaN(minutesInput) || isNaN(secondsInput) ||
+            hoursInput < 0 || minutesInput < 0 || secondsInput < 0) {
+            alert("Invalid input. Please enter valid hours, minutes, and seconds.");
+        } else {
+            window.location.href = `${destination}?hours=${hoursInput}&minutes=${minutesInput}&seconds=${secondsInput}`;
+        }
+    }
+</script>
 
 </body>
 </html>

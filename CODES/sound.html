@@ -21,13 +21,14 @@
 </head>
 <body>
 
-  <h1>Interactive Countdown Timer</h1>
+  <!-- <h1>Interactive Countdown Timer</h1> -->
 
   <script>
-    // Prompt the user for hours, minutes, and seconds
-    const hoursInput = parseInt(prompt("Enter hours:"));
-    const minutesInput = parseInt(prompt("Enter minutes:"));
-    const secondsInput = parseInt(prompt("Enter seconds:"));
+    // Retrieve data from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const hoursInput = parseInt(urlParams.get('hours')) || 0;
+    const minutesInput = parseInt(urlParams.get('minutes')) || 0;
+    const secondsInput = parseInt(urlParams.get('seconds')) || 0;
 
     // Validate the input
     if (isNaN(hoursInput) || isNaN(minutesInput) || isNaN(secondsInput) ||
@@ -44,7 +45,6 @@
 
       // Update the countdown every 1 second
       const x = setInterval(function() {
-
         // Get the current date and time
         const now = new Date().getTime();
 
@@ -60,23 +60,17 @@
         // Display the countdown
         countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-          // Change background color based on remaining time
-          if (distance < 60000) { // Less than 1 minute (60,000 milliseconds)
-            document.body.style.backgroundColor = "rgb(255, 0, 0)"; // Red color for 1 minute remaining
-          } else if (distance < 120000) { // Less than 2 minutes (120,000 milliseconds)
-            document.body.style.backgroundColor = "rgb(244, 166, 31)"; // Orange color for 2 minutes remaining
-          } else if (distance < 300000) { // Less than 5 minutes (300,000 milliseconds)
-            document.body.style.backgroundColor = "yellow"; // Yellow color for 5 minutes remaining
-          }
-
         if (distance < 0) {
           clearInterval(x);
           countdownElement.innerHTML = "EXPIRED";
-          document.body.style.backgroundColor = "rgb(19, 110, 246)";;
+          document.body.style.backgroundColor = "rgb(19, 110, 246)";
         }
       }, 1000);
     }
   </script>
+
+  <!-- Back to Index link -->
+  <p><a href="index.html">Back to Countdown Setup</a></p>
 
 </body>
 </html>
