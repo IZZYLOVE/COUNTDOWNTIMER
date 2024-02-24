@@ -39,10 +39,10 @@
       const countDownDate = new Date().getTime() + (hoursInput * 60 * 60 * 1000) + (minutesInput * 60 * 1000) + (secondsInput * 1000);
 
       // Create audio elements for different levels
-      const redAlert = createAudio('../SOUNDS/analog-watch-alarm_daniel-simion.mp3');
-      const orangeAlert = createAudio('../SOUNDS/sms-alert-3-daniel_simon.mp3');
-      const yellowAlert = createAudio('../SOUNDS/sms-alert-5-daniel_simon.mp3');
-      const endAlert = createAudio('../SOUNDS/service-bell_daniel_simion.mp3');
+      const redAlert = createAudio('./assets/SOUNDS/analog-watch-alarm_daniel-simion.mp3');
+      const orangeAlert = createAudio('./assets/SOUNDS/sms-alert-3-daniel_simon.mp3');
+      const yellowAlert = createAudio('./assets/SOUNDS/sms-alert-5-daniel_simon.mp3');
+      const endAlert = createAudio('.assets/SOUNDS/service-bell_daniel_simion.mp3');
 
       // Create variables to track whether the alerts have been played
       let redAlertPlayed = false;
