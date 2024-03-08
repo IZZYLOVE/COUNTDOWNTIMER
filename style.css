@@ -1,0 +1,12 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 10px;
+    background-color: rgb(19, 246, 19); /* Initial background color */
+    transition: background-color 1s ease; /* Smooth transition effect */
+  }
+
+  #countdown {
+    font-size: 36px;
+    font-weight: bold;
+  }
